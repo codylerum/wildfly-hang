@@ -25,6 +25,6 @@ public class TestActions {
   public void fireAsyncEvent() {
     final String id = UUID.randomUUID().toString();
     log.info(String.format("Executing Asynchronous: %s", id));
-    event.fireAsync(new SimpleEvent(id, Duration.ofSeconds(5)), NotificationOptions.ofExecutor(serialExecutor));
+    event.fireAsync(new SimpleEvent(id, EventStyle.ASYNC, Duration.ofSeconds(5)), NotificationOptions.ofExecutor(serialExecutor));
   }
 }

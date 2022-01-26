@@ -6,10 +6,12 @@ public class SimpleEvent {
 
   private final String id;
   private final Duration sleepDuration;
+  private EventStyle style;
 
-  public SimpleEvent(String id, Duration sleepDuration) {
+  public SimpleEvent(String id, EventStyle style, Duration sleepDuration) {
     this.id = id;
     this.sleepDuration = sleepDuration;
+    this.style = style;
   }
 
   public String getId() {
@@ -18,5 +20,9 @@ public class SimpleEvent {
 
   public Duration getSleepDuration() {
     return sleepDuration;
+  }
+
+  public EventStyle getStyle() {
+    return style;
   }
 }
