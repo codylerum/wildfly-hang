@@ -1,11 +1,16 @@
 package demo;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+import javax.enterprise.concurrent.ManagedExecutorService;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.NotificationOptions;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,26 +19,17 @@ import javax.inject.Named;
 @Named
 public class BackingBean implements Serializable {
 
-    private static final Logger log = Logger.getLogger("BackingBean");
+  private static final Logger log = Logger.getLogger("BackingBean");
 
-    private List<String> randomStrings = new ArrayList<>();
+  @Resource(lookup = "java:jboss/ee/concurrency/executor/serial")
+  private ManagedExecutorService serialExecutor;
 
-    @Inject
-    private void init() {
-        log.info("Starting Request");
-        try {
-            //Slow the load down a bit
-            for (int i = 0; i < 1000; i++) {
-                randomStrings.add(UUID.randomUUID().toString());
-            }
-            Thread.sleep(3000);
-        }
-        catch (InterruptedException e) {
-            log.info("Interruption Sleeping");
-        }
-    }
+  @Inject
+  private Event<SimpleEvent> event;
 
-    public List<String> getRandomStrings() {
-        return randomStrings;
-    }
+  public void executeAsync() {
+    final String id = UUID.randomUUID().toString();
+    log.info(String.format("Executing Asynchronous: %s", id));
+    event.fireAsync(new SimpleEvent(id, Duration.ofSeconds(5)), NotificationOptions.ofExecutor(serialExecutor));
+  }
 }
