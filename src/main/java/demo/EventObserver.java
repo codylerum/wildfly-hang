@@ -15,11 +15,11 @@ public class EventObserver {
   @Inject
   private SimpleEventActions simpleEventActions;
 
-  public void observe(@Observes SimpleEvent simpleEvent) throws InterruptedException {
+  public void observe(@Observes SimpleEvent simpleEvent){
     simpleEventActions.execute(simpleEvent);
   }
 
-  public void observeAsync(@ObservesAsync SimpleEvent simpleEvent) throws InterruptedException {
+  public void observeAsync(@ObservesAsync SimpleEvent simpleEvent)  {
     simpleEventActions.execute(simpleEvent);
   }
 }
