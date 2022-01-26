@@ -224,7 +224,7 @@
                             <systemPropertyVariables>
                                 <projectBuildDirectory>${project.build.directory}</projectBuildDirectory>
                                 <arquillian.launch>bootable-jar</arquillian.launch>
-                                <bootable.jar>${project.build.directory}/oss-bootable.jar</bootable.jar>
+                                <bootable.jar>${project.build.directory}/demo-bootable.jar</bootable.jar>
                                 <arquillian.xml>arquillian.xml</arquillian.xml>
                             </systemPropertyVariables>
                             <redirectTestOutputToFile>false</redirectTestOutputToFile>
