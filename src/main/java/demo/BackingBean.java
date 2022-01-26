@@ -19,17 +19,5 @@ import javax.inject.Named;
 @Named
 public class BackingBean implements Serializable {
 
-  private static final Logger log = Logger.getLogger("BackingBean");
 
-  @Resource(lookup = "java:jboss/ee/concurrency/executor/serial")
-  private ManagedExecutorService serialExecutor;
-
-  @Inject
-  private Event<SimpleEvent> event;
-
-  public void executeAsync() {
-    final String id = UUID.randomUUID().toString();
-    log.info(String.format("Executing Asynchronous: %s", id));
-    event.fireAsync(new SimpleEvent(id, Duration.ofSeconds(5)), NotificationOptions.ofExecutor(serialExecutor));
-  }
 }
