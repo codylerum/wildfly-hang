@@ -28,7 +28,7 @@ public class IntegrationTests {
     driver.close();
   }
 
-  @Deployment
+  @Deployment(testable = false)
   public static WebArchive deployment() {
     try {
       final String buildTargetDirectory = System.getProperty("projectBuildDirectory", "target");
