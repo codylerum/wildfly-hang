@@ -1,5 +1,7 @@
 package demo;
 
+import com.google.common.util.concurrent.Uninterruptibles;
+
 import java.time.Duration;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -22,11 +24,10 @@ public class TestActions {
   @Inject
   private Event<SimpleEvent> event;
 
-  public void fireAsyncEvent() throws InterruptedException {
+  public void fireAsyncEvent() {
     final String id = UUID.randomUUID().toString();
     log.info(String.format("Executing Asynchronous: %s", id));
     event.fireAsync(new SimpleEvent(id, EventStyle.ASYNC, Duration.ofSeconds(5)), NotificationOptions.ofExecutor(serialExecutor));
-    Thread.sleep(Duration.ofSeconds(1).toMillis());
-
+    Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(1));
   }
 }
