@@ -22,9 +22,11 @@ public class TestActions {
   @Inject
   private Event<SimpleEvent> event;
 
-  public void fireAsyncEvent() {
+  public void fireAsyncEvent() throws InterruptedException {
     final String id = UUID.randomUUID().toString();
     log.info(String.format("Executing Asynchronous: %s", id));
     event.fireAsync(new SimpleEvent(id, EventStyle.ASYNC, Duration.ofSeconds(5)), NotificationOptions.ofExecutor(serialExecutor));
+    Thread.sleep(Duration.ofSeconds(1).toMillis());
+
   }
 }

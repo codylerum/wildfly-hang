@@ -21,7 +21,7 @@ public class IntegrationTests {
   private TestActions testActions;
 
   @Test
-  public void fireAsyncObserver() {
+  public void fireAsyncObserver() throws InterruptedException {
     testActions.fireAsyncEvent();
   }
 
